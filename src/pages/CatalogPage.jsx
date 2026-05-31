@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 //Create pokemon list (つ✧ω✧)つ
 function CatalogPage(){
     const [pokemon, setPokemon] = useState([]);
-
+    const [search, setSearch] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
     useEffect(() => {
         async function fetchPokemon(){
             const response = await fetch(
@@ -16,13 +17,39 @@ function CatalogPage(){
         //Start function ＼(〇_ｏ)／ 
         fetchPokemon();
     },[]);
+// Create a new list with only Pokemon names (←_←) 
+    const filteredPokemon = pokemon.filter((poke) => {
+        return poke.name.includes(search);
+});
+//Number of Pokemon per page  (＃￣ω￣)
+    const pokemonPerPage = 20
+    const startIndex = (currentPage - 1) * pokemonPerPage;
+    const endIndex = startIndex + pokemonPerPage;
+    const currentPokemon = filteredPokemon.slice(startIndex, endIndex);
+//Total number of pages <(￣︶￣)> 
+    const totalPages = Math.ceil(filteredPokemon.length/pokemonPerPage);
 return(
     <div>
         <h1>Pokemon Catalog</h1>
-        {pokemon.map((poke)=>(
+        <input
+        type="text"
+        placeholder="Search Pokemon"
+        value={search}
+        onChange={(Event) => setSearch(Event.target.value)}
+        />
+        {currentPokemon.map((poke)=>(
             <p key={poke.name}>{poke.name}</p>
         ))}
-    </div>
+<button on onClick={()=> setCurrentPage(currentPage - 1)}>
+    Previous
+</button>
+
+<span> Page {currentPage} of {totalPages} </span>
+
+<button onClick={()=> setCurrentPage(currentPage + 1)}>
+    Next
+</button>
+</div>
 );
 }
 
