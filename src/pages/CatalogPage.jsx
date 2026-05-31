@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PokemonCard from "C:/Users/midat/OneDrive/Desktop/Pokemon Projects/pokemon-trainer/src/components/PokemonCard"
 
 //Create pokemon list (つ✧ω✧)つ
 function CatalogPage(){
@@ -37,10 +38,14 @@ return(
         value={search}
         onChange={(Event) => setSearch(Event.target.value)}
         />
-        {currentPokemon.map((poke)=>(
-            <p key={poke.name}>{poke.name}</p>
+        {currentPokemon.map((poke, index)=>(
+            <PokemonCard
+            key={poke.name}
+            number={startIndex + index +1}
+            name={poke.name}
+            />
         ))}
-<button on onClick={()=> setCurrentPage(currentPage - 1)}>
+<button onClick={()=> setCurrentPage(currentPage - 1)}>
     Previous
 </button>
 
