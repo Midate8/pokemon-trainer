@@ -1,8 +1,49 @@
-function LoginPage () {
+import { useState } from "react"
+import loginUser from "../services/authService"
+import { useAuth } from "../context/authContext"
+import { useNavigate } from "react-router"
+
+function LoginPage() {
+
+    //States
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+
+    // AuthContext
+    const { login } = useAuth()
+
+    // Navigate
+    const navigate = useNavigate()
+
+    async function handleSubmit() {
+        setError(null)
+        try {
+            const token = await loginUser(username, password)
+            login(token, username)
+            navigate("/") //Navigate to where you want after login
+        }
+        catch(err){
+            setError(err.message)
+        }
+
+    }
+
     return (
         <>
-        <input name="username"></input>
-        <input name="password"></input>
+            <p>Log in</p>
+            <p><span>Username: </span>
+            
+            {/* Username */}
+            <input type="text" name="username" value={username} onChange={(e)=>setUsername(e.target.value)}></input></p>
+            
+            {/* Password */}
+            <p><span>Password: </span><input type="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input></p>
+            
+            {/* Error */}
+            {error && <p>{error}</p>}
+            
+            <button onClick={handleSubmit}>Enter</button>
         </>
     )
 }

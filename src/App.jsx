@@ -1,16 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
+import TrainerPage from './pages/TrainerPage'
+import CatalogPage from './pages/CatalogPage'
+import { AuthProvider } from './context/authContext'
+import { BrowserRouter, Routes, Route } from 'react-router'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  // REMEMBER TO WRAP APP IN AUTH PROVIDER
+  // Temporarily added LoginPage instead of app
   return (
     <>
-      <LoginPage />
+      <BrowserRouter>
+        <AuthProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/Trainer" element={<TrainerPage />} />
+            <Route path="/" element={<CatalogPage />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </>
   )
 }
