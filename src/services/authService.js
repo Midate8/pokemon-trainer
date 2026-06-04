@@ -1,8 +1,8 @@
-const API_URL = "https://dig-tal-case-api-emdpbma2bte6ftgz.westeurope-01.azurewebsites.net" // Can be changed !
+const API_URL = "https://dig-tal-case-api-emdpbma2bte6ftgz.westeurope-01.azurewebsites.net"
 
 export default async function loginUser(username, password) {
 
-    // Fetch
+    // API Checks username and password
     const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},

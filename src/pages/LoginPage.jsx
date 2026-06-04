@@ -32,9 +32,9 @@ function LoginPage() {
     return (
         <>
             <p>Log in</p>
-            <p><span>Username: </span>
-            
+
             {/* Username */}
+            <p><span>Username: </span>
             <input type="text" name="username" value={username} onChange={(e)=>setUsername(e.target.value)}></input></p>
             
             {/* Password */}
