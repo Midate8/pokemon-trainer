@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "C:/Users/midat/OneDrive/Desktop/Pokemon Projects/pokemon-trainer/src/components/PokemonCard"
 
-//Create pokemon list (つ✧ω✧)つ
+//Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
     const [pokemon, setPokemon] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    // List of caught Pokémon IDs
+    const [caughtPokemon, setCaughtPokemon] = useState([]);
     useEffect(() => {
         async function fetchPokemon(){
             const response = await fetch(
@@ -15,7 +17,7 @@ function CatalogPage(){
             
             setPokemon(data.results);
         }
-        //Start function ＼(〇_ｏ)／ 
+         
         fetchPokemon();
     },[]);
 // Create a new list with only Pokemon names (←_←) 
@@ -29,6 +31,10 @@ function CatalogPage(){
     const currentPokemon = filteredPokemon.slice(startIndex, endIndex);
 //Total number of pages <(￣︶￣)> 
     const totalPages = Math.ceil(filteredPokemon.length/pokemonPerPage);
+
+function handleCatch (number){
+    setCaughtPokemon([...caughtPokemon, number]);
+}
 return(
     <div>
         <h1>Pokemon Catalog</h1>
@@ -39,11 +45,13 @@ return(
         onChange={(Event) => setSearch(Event.target.value)}
         />
         {currentPokemon.map((poke, index)=>(
-            <PokemonCard
-            key={poke.name}
-            number={startIndex + index +1}
-            name={poke.name}
-            />
+           <PokemonCard
+                key={poke.name}
+                number={startIndex + index +1}
+                name={poke.name}
+                onCatch={handleCatch}
+                isCaught={caughtPokemon.includes(startIndex + index +1)}
+    ></PokemonCard>
         ))}
 <button onClick={()=> setCurrentPage(currentPage - 1)}>
     Previous
