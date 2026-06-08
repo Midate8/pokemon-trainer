@@ -2,6 +2,7 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useTrainer } from "../context/TrainerContext.jsx";
+import "./trainerpage.css";
 
 export default function TrainerPage() {
   const { user, logout } = useAuth();
@@ -17,7 +18,7 @@ export default function TrainerPage() {
   return (
     <main className="trainer-page">
       <header className="trainer-header">
-        <h1>{user.username}'s Pokédex</h1>
+        <h2>{user.username}'s Pokédex</h2>
 
         <button
           className="trainer-logout-btn" onClick={() => {
