@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PokemonCard from "C:/Users/midat/OneDrive/Desktop/Pokemon Projects/pokemon-trainer/src/components/PokemonCard"
+import PokemonCard from "../components/PokemonCard"
 
 //Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
