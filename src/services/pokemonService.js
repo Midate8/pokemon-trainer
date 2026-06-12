@@ -42,5 +42,21 @@ export async function releasePokemon(pokemonId, token, username) {
 }
 
 
-// Displaying Pokemon
-// #TODO (?)
+
+// Simply returning the array
+export async function returnPokemon(token, username) {
+
+    const response = await fetch(`${API_URL}/users/${username}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    if(!response.ok) throw new Error("Could not return Array")
+
+    const data = await response.json()
+
+    return data.pokemon
+}
