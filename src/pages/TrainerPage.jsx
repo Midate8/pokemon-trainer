@@ -1,12 +1,22 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useTrainer } from "../context/TrainerContext.jsx";
+import { useState, useEffect } from "react";
 import "./trainerpage.css";
 
 export default function TrainerPage() {
   const { user, logout } = useAuth();
   const { caughtPokemon, releasePokemon } = useTrainer();
   const navigate = useNavigate();
+
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -28,10 +38,12 @@ export default function TrainerPage() {
         </button>
       </header>
 
+      {message && (
+        <p className="trainer-message">{message}</p>
+      )}
+
       {caughtPokemon.length === 0 ? (
-        <p className="trainer-empty">
-          You haven't caught any Pokémon yet.
-        </p>
+        <p className="trainer-empty">You haven't caught any Pokémon yet.</p>
       ) : (
         <section className="trainer-grid">
           {caughtPokemon.map((pokemon) => (
@@ -42,13 +54,14 @@ export default function TrainerPage() {
                 className="trainer-card-image"
               />
 
-              <h2 className="trainer-card-name">
-                {pokemon.name}
-              </h2>
+              <h2 className="trainer-card-name">{pokemon.name}</h2>
 
               <button
                 className="trainer-release-btn"
-                onClick={() => releasePokemon(pokemon.id)}
+                onClick={() => {
+                  releasePokemon(pokemon.id);
+                  setMessage(`You released ${pokemon.name}`);
+                }}
               >
                 Release
               </button>
@@ -59,3 +72,4 @@ export default function TrainerPage() {
     </main>
   );
 }
+

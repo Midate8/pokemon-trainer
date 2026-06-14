@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard"
-
+import { useTrainer } from "../context/TrainerContext"; // Sarika added 
 //Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
     const [pokemon, setPokemon] = useState([]);
@@ -67,3 +67,8 @@ return(
 }
 
 export default CatalogPage;
+
+
+
+
+
