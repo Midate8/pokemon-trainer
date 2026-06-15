@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import PokemonCard from "../components/PokemonCard"
+import {PokemonCard} from "../components/PokemonCard"
+import {useAuth} from "../context/AuthContext";
+import {catchPokemon} from "../services/pokemonService";
 
 //Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
+    const {token, username} = useAuth();
     const [pokemon, setPokemon] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,9 +35,20 @@ function CatalogPage(){
 //Total number of pages <(￣︶￣)> 
     const totalPages = Math.ceil(filteredPokemon.length/pokemonPerPage);
 
-function handleCatch (number){
-    setCaughtPokemon([...caughtPokemon, number]);
+async function handleCatch (number){
+    if (!token || !username) {
+        alert("Please log in to catch Pokemon.")
+    return;
 }
+    try {
+        await catchPokemon(number, token, username);
+        setCaughtPokemon([...caughtPokemon, number]);
+    } catch (error) {
+        console.log(error);
+        alert("Could not catch Pokemon.");
+}
+}
+
 return(
     <div>
         <h1>Pokemon Catalog</h1>
