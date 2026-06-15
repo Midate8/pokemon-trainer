@@ -3,6 +3,8 @@ import {PokemonCard} from "../components/PokemonCard"
 import {useAuth} from "../context/AuthContext";
 import {catchPokemon} from "../services/pokemonService";
 
+import PokemonCard from "../components/PokemonCard"
+import { useTrainer } from "../context/TrainerContext"; // Sarika added 
 //Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
     const {token, username} = useAuth();
@@ -81,3 +83,8 @@ return(
 }
 
 export default CatalogPage;
+
+
+
+
+
