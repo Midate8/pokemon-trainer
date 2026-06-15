@@ -1,53 +1,88 @@
-import { catchPokemon, releasePokemon, returnPokemon } from "../services/pokemonService"
-import { useState } from "react"
-import { useAuth } from "../context/authContext"
-
-function CatalogPage() {
-
-    const [pokeID, setPokeID] = useState("")
-    const [error, setError] = useState("")
-    const { token, username } = useAuth()
-
-    async function handleAdd() {
-        setError(null)
-        try {
-            const result = await catchPokemon(pokeID, token, username)
-            console.log(result)
-            console.log("Successfully caught a pokemon!")
+import { useEffect, useState } from "react";
+import PokemonCard from "../components/PokemonCard"
+import {useAuth} from "../context/AuthContext";
+import {catchPokemon} from "../services/pokemonService";
+import { useTrainer } from "../context/TrainerContext"; // Sarika added 
+//Create all function in one place  (つ✧ω✧)つ
+function CatalogPage(){
+    const {token, username} = useAuth();
+    const [pokemon, setPokemon] = useState([]);
+    const [search, setSearch] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    // List of caught Pokémon IDs
+    const [caughtPokemon, setCaughtPokemon] = useState([]);
+    useEffect(() => {
+        async function fetchPokemon(){
+            const response = await fetch(
+                "https://pokeapi.co/api/v2/pokemon?limit=151"
+            );
+            const data = await response.json();
+            
+            setPokemon(data.results);
         }
-        catch (err) {
-            setError(err.message)
-        }
-    }
+         
+        fetchPokemon();
+    },[]);
+// Create a new list with only Pokemon names (←_←) 
+    const filteredPokemon = pokemon.filter((poke) => {
+        return poke.name.includes(search);
+});
+//Number of Pokemon per page  (＃￣ω￣)
+    const pokemonPerPage = 20
+    const startIndex = (currentPage - 1) * pokemonPerPage;
+    const endIndex = startIndex + pokemonPerPage;
+    const currentPokemon = filteredPokemon.slice(startIndex, endIndex);
+//Total number of pages <(￣︶￣)> 
+    const totalPages = Math.ceil(filteredPokemon.length/pokemonPerPage);
 
-    async function handleRemove() {
-        setError(null)
-        try {
-            const result = await releasePokemon(pokeID, token, username)
-            console.log(result)
-            console.log("Successfully released a pokemon!")
-        }
-        catch (err) {
-            setError(err.message)
-        }
-    }
-
-    async function displayPokemonArray() {
-        const result = await returnPokemon(token, username)
-        console.log(result)
-    }
-
-    return (
-        <>
-            <input type="number" value={pokeID} onChange={(e) => setPokeID(e.target.value)}></input>
-            <p></p><button onClick={handleAdd}>Add pokemon</button>
-            <p></p><button onClick={handleRemove}>Release pokemon</button>
-            <p></p><button onClick={displayPokemonArray}>Console Log</button>
-
-            {/* Error */}
-            {error && <p>{error}</p>}
-        </>
-    )
+async function handleCatch (number){
+    if (!token || !username) {
+        alert("Please log in to catch Pokemon.")
+    return;
+}
+    try {
+        await catchPokemon(number, token, username);
+        setCaughtPokemon([...caughtPokemon, number]);
+    } catch (error) {
+        console.log(error);
+        alert("Could not catch Pokemon.");
+}
 }
 
-export default CatalogPage
+return(
+    <div>
+        <h1>Pokemon Catalog</h1>
+        <input
+        type="text"
+        placeholder="Search Pokemon"
+        value={search}
+        onChange={(Event) => setSearch(Event.target.value)}
+        />
+        {currentPokemon.map((poke, index)=>(
+           <PokemonCard
+                key={poke.name}
+                number={startIndex + index +1}
+                name={poke.name}
+                onCatch={handleCatch}
+                isCaught={caughtPokemon.includes(startIndex + index +1)}
+    ></PokemonCard>
+        ))}
+<button onClick={()=> setCurrentPage(currentPage - 1)}>
+    Previous
+</button>
+
+<span> Page {currentPage} of {totalPages} </span>
+
+<button onClick={()=> setCurrentPage(currentPage + 1)}>
+    Next
+</button>
+</div>
+);
+}
+
+export default CatalogPage;
+
+
+
+
+

@@ -11,10 +11,10 @@ export async function catchPokemon(pokemonId, token, username) {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({pokemonId}) //ID is inputted as a raw number here
+        body: JSON.stringify({ pokemonId }) //ID is inputted as a raw number here
     })
 
-    if(!response.ok) throw new Error("Could not catch Pokémon")
+    if (!response.ok) throw new Error("Could not catch Pokémon")
 
     const data = await response.json()
 
@@ -31,10 +31,10 @@ export async function releasePokemon(pokemonId, token, username) {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({pokemonId}) //ID is inputted as a raw number here
+        body: JSON.stringify({ pokemonId }) //ID is inputted as a raw number here
     })
 
-    if(!response.ok) throw new Error("Could not release Pokémon")
+    if (!response.ok) throw new Error("Could not release Pokémon")
 
     const data = await response.json()
 
@@ -42,9 +42,8 @@ export async function releasePokemon(pokemonId, token, username) {
 }
 
 
-
-// Simply returning the array
-export async function returnPokemon(token, username) {
+// Displaying Pokemon
+export async function displayPokemon(token, username) {
 
     const response = await fetch(`${API_URL}/users/${username}`, {
         method: 'GET',
@@ -54,7 +53,7 @@ export async function returnPokemon(token, username) {
         }
     })
 
-    if(!response.ok) throw new Error("Could not return Array")
+    if (!response.ok) throw new Error("Could not return Array")
 
     const data = await response.json()
 
