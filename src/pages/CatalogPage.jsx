@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import {PokemonCard} from "../components/PokemonCard"
 import {useAuth} from "../context/AuthContext";
 import {catchPokemon} from "../services/pokemonService";
 
@@ -27,7 +26,7 @@ function CatalogPage(){
     },[]);
 // Create a new list with only Pokemon names (←_←) 
     const filteredPokemon = pokemon.filter((poke) => {
-        return poke.name.includes(search);
+        return poke.name.includes(search.toLowerCase);
 });
 //Number of Pokemon per page  (＃￣ω￣)
     const pokemonPerPage = 20
@@ -37,6 +36,9 @@ function CatalogPage(){
 //Total number of pages <(￣︶￣)> 
     const totalPages = Math.ceil(filteredPokemon.length/pokemonPerPage);
 
+function getPokemonId(poke){
+    return Number(poke.url.split("/").filter(Boolean).pop());
+}
 async function handleCatch (number){
     if (!token || !username) {
         alert("Please log in to catch Pokemon.")
@@ -51,6 +53,7 @@ async function handleCatch (number){
 }
 }
 
+
 return(
     <div>
         <h1>Pokemon Catalog</h1>
@@ -63,19 +66,23 @@ return(
         {currentPokemon.map((poke, index)=>(
            <PokemonCard
                 key={poke.name}
-                number={startIndex + index +1}
+                number={getPokemonId(poke)}
                 name={poke.name}
                 onCatch={handleCatch}
-                isCaught={caughtPokemon.includes(startIndex + index +1)}
+                isCaught={caughtPokemon.includes(getPokemonId(poke))}
     ></PokemonCard>
         ))}
-<button onClick={()=> setCurrentPage(currentPage - 1)}>
+<button 
+disabled={currentPage === 1}
+onClick={()=> setCurrentPage(currentPage - 1)}>
     Previous
 </button>
 
 <span> Page {currentPage} of {totalPages} </span>
 
-<button onClick={()=> setCurrentPage(currentPage + 1)}>
+<button 
+disabled={currentPage === totalPages}
+onClick={()=> setCurrentPage(currentPage + 1)}>
     Next
 </button>
 </div>
