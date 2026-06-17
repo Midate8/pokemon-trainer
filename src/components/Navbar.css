@@ -1,5 +1,60 @@
 nav ul {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     list-style: none;
+    padding: 0px;
+    margin-bottom: 7px;
+}
+
+nav a, span {
+    text-decoration: none;
+    color: rgb(40, 40, 40);
+}
+
+span {
+    color: white;
+}
+
+nav {
+    background-color: rgb(239, 94, 94);
+    padding-top: 5px;
+    padding-bottom: 1px;
+    align-items: center;
+
+}
+
+nav a {
+    background-color: rgb(246, 243, 104);
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 999px;
+
+}
+
+nav img {
+    height: 35px;
+    margin-left: 10px;
+
+}
+
+/* from Trainer Page */
+.nav-btn {
+    margin-right: 10px;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 7px;
+    font-weight: 500;
+    background: #4c6fff;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
 }
