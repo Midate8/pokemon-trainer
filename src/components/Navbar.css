@@ -32,6 +32,14 @@ nav a {
     border-radius: 999px;
 
 }
+nav a:hover {
+    background-color: rgb(217, 210, 0);
+}
+
+/* For all nav buttons */
+nav a:active {
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
 
 nav img {
     height: 35px;
@@ -46,11 +54,15 @@ nav img {
     border-radius: 999px;
     padding: 7px 7px;
     font-weight: 500;
-    background: #4c6fff;
+    background: rgb(76, 111, 255);
     color: white;
     display: flex;
     align-items: center;
     margin-left: 5px;
+}
+
+.nav-btn:hover {
+    background-color: rgb(23, 64, 224);
 }
 
 nav ul li {

@@ -35,19 +35,21 @@ function LoginPage() {
     return (
         <>
             <br></br>
-            <h2 className="p-login">Log in</h2>
+            <h1 className="p-login">Log in</h1>
 
             {/* Username */}
-            <p className="normal-p"><div className="input-info">Username:</div>
-            <input type="text" name="username" value={username} className="login-input" onChange={(e)=>setUsername(e.target.value)}></input></p>
+            <div className="normal-p">
+            <input type="text" name="username" value={username}  placeholder="Username"  className="login-input" onChange={(e)=>setUsername(e.target.value)}></input></div>
             
             {/* Password */}
-            <p className="normal-p"><div className="input-info">Password: </div><input type="password" name="password" className="login-input" value={password} onChange={(e)=>setPassword(e.target.value)}></input></p>
+            <div className="normal-p">
+            <input type="password"  placeholder="Password "  name="password" className="login-input" value={password} onChange={(e)=>setPassword(e.target.value)}></input></div>
             
-            {/* Error */}
-            {error && <p className="normal-p">{error}</p>}
-            
+            <br></br>
             <button onClick={handleSubmit} className="enter-button">Enter</button>
+
+            {/* Error */}
+            {error && <div className="normal-p">{error}</div>}
         </>
     )
 }
