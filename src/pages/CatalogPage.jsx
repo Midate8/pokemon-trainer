@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import {useAuth} from "../context/AuthContext";
 import {catchPokemon} from "../services/pokemonService";
 
-import PokemonCard from "../components/PokemonCard"
-import { useTrainer } from "../context/TrainerContext"; // Sarika added 
+import PokemonCard from "../components/PokemonCard" 
 //Create all function in one place  (つ✧ω✧)つ
 function CatalogPage(){
     const {token, username} = useAuth();
@@ -26,7 +25,7 @@ function CatalogPage(){
     },[]);
 // Create a new list with only Pokemon names (←_←) 
     const filteredPokemon = pokemon.filter((poke) => {
-        return poke.name.includes(search.toLowerCase);
+        return poke.name.includes(search.toLowerCase());
 });
 //Number of Pokemon per page  (＃￣ω￣)
     const pokemonPerPage = 20
@@ -90,8 +89,3 @@ onClick={()=> setCurrentPage(currentPage + 1)}>
 }
 
 export default CatalogPage;
-
-
-
-
-
