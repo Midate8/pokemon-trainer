@@ -2,6 +2,7 @@ import { useState } from "react"
 import loginUser from "../services/AuthService"
 import { useAuth } from "../context/AuthContext"
 import { useNavigate } from "react-router-dom"
+import "./LoginPage.css"
 
 function LoginPage() {
 
@@ -16,6 +17,7 @@ function LoginPage() {
     // Navigate
     const navigate = useNavigate()
 
+    // Pressing the login button
     async function handleSubmit() {
         setError(null)
         try {
@@ -29,21 +31,25 @@ function LoginPage() {
 
     }
 
+    // Website structure
     return (
         <>
-            <p>Log in</p>
+            <br></br>
+            <h1 className="p-login">Log in</h1>
 
             {/* Username */}
-            <p><span>Username: </span>
-            <input type="text" name="username" value={username} onChange={(e)=>setUsername(e.target.value)}></input></p>
+            <div className="normal-p">
+            <input type="text" name="username" value={username}  placeholder="Username"  className="login-input" onChange={(e)=>setUsername(e.target.value)}></input></div>
             
             {/* Password */}
-            <p><span>Password: </span><input type="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input></p>
+            <div className="normal-p">
+            <input type="password"  placeholder="Password "  name="password" className="login-input" value={password} onChange={(e)=>setPassword(e.target.value)}></input></div>
             
+            <br></br>
+            <button onClick={handleSubmit} className="enter-button">Enter</button>
+
             {/* Error */}
-            {error && <p>{error}</p>}
-            
-            <button onClick={handleSubmit}>Enter</button>
+            {error && <div className="normal-p">{error}</div>}
         </>
     )
 }

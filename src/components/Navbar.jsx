@@ -1,18 +1,26 @@
+import './Navbar.css'
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import welcomeLogo from "../assets/WelcomeText.png"
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const { username, user, logout } = useAuth();
 
   return (
     <nav>
-      <Link to="/">Catalog</Link> |{" "}
-      <Link to="/trainer">Trainer</Link> |{" "}
-      {user ? (
-        <button onClick={logout}>Logout</button>
-      ) : (
-        <Link to="/login">Login</Link>
-      )}
+      <ul>
+        <li><img src={welcomeLogo} alt="logo" /></li>
+        <li><Link to="/">Catalog</Link></li>
+        <li><Link to="/trainer">Trainer</Link></li>
+        {user ? (
+          <li>
+            <span>🐱{username} </span>
+            <button onClick={logout} className="nav-btn">Logout</button>
+          </li>
+        ) : (
+          <li><Link to="/login" className="nav-btn">Login</Link></li>
+        )}
+      </ul>
     </nav>
   );
 }

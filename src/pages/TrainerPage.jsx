@@ -1,15 +1,41 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import { useTrainer } from "../context/TrainerContext.jsx";
 import { useState, useEffect } from "react";
 import "./trainerpage.css";
+import { releasePokemon, displayPokemon } from "../services/pokemonService";
 
 export default function TrainerPage() {
-  const { user, logout } = useAuth();
-  const { caughtPokemon, releasePokemon } = useTrainer();
+  const { token, username, user, logout } = useAuth();
+  const [caughtPokemon, setCaughtPokemon] = useState([])
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
+
+
+  async function loadDisplay() {
+    try {
+      const ids = await displayPokemon(token, username)
+      const details = await Promise.all(
+        ids.map(async (id) => {
+          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+          const data = await response.json()
+          return {
+            id: data.id,
+            name: data.name,
+            image: data.sprites.front_default
+          }
+        })
+      )
+      setCaughtPokemon(details)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    loadDisplay()
+  }, [])
+
 
   useEffect(() => {
     if (message) {
@@ -58,8 +84,9 @@ export default function TrainerPage() {
 
               <button
                 className="trainer-release-btn"
-                onClick={() => {
-                  releasePokemon(pokemon.id);
+                onClick={async () => {
+                  await releasePokemon(pokemon.id, token, username);
+                  setCaughtPokemon(prev => prev.filter(p => p.id !== pokemon.id));
                   setMessage(`You released ${pokemon.name}`);
                 }}
               >

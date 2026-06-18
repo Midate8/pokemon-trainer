@@ -1,5 +1,75 @@
 nav ul {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     list-style: none;
+    padding: 0px;
+    margin-bottom: 7px;
+}
+
+nav a, nav span {
+    text-decoration: none;
+    color: rgb(40, 40, 40);
+}
+
+nav span {
+    color: white;
+}
+
+nav {
+    background-color: rgb(239, 94, 94);
+    padding-top: 5px;
+    padding-bottom: 1px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+}
+
+nav a {
+    background-color: rgb(246, 243, 104);
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 999px;
+
+}
+nav a:hover {
+    background-color: rgb(217, 210, 0);
+}
+
+/* For all nav buttons */
+nav a:active {
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
+
+nav img {
+    height: 35px;
+    margin-left: 10px;
+
+}
+
+/* from Trainer Page */
+.nav-btn {
+    margin-right: 10px;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 7px;
+    font-weight: 500;
+    background: rgb(76, 111, 255);
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.nav-btn:hover {
+    background-color: rgb(23, 64, 224);
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
 }
