@@ -6,12 +6,12 @@ nav ul {
     margin-bottom: 7px;
 }
 
-nav a, span {
+nav a, nav span {
     text-decoration: none;
     color: rgb(40, 40, 40);
 }
 
-span {
+nav span {
     color: white;
 }
 
@@ -20,6 +20,9 @@ nav {
     padding-top: 5px;
     padding-bottom: 1px;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
 }
 
