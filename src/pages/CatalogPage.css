@@ -1,0 +1,116 @@
+.catalog-default h1 {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.catalog-default input {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 12px;
+}
+
+.Pokegrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.card-bg {
+    background: #f5f5ff;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.span-name {
+    color: black;
+    font-size: 26px;
+    min-width: 200px;
+}
+
+.catch-button {
+    gap: 40px;
+}
+
+.dex-number {
+    color: black;
+    font-size: 30px;
+    padding:0px;
+    margin-left:40px;
+    min-width: 50px;
+}
+
+.section-1{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.section-2{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+
+
+
+
+.catch-button {
+    border: none;
+    border-radius: 999px;
+    padding: 16px 40px;
+    font-size: 20px;
+    background: linear-gradient(to bottom, rgb(255, 69, 69), rgb(238, 238, 238));
+    color: rgb(255, 255, 255);
+    margin: 0 auto;
+    margin-left: 0px;
+    margin-right: 0px;
+    font-weight: bold;  
+}
+
+.catch-button:hover {
+    background: linear-gradient(to bottom, rgb(255, 69, 69), rgb(255, 69, 69));
+}
+
+.catch-button:active {
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+    background-color: rgb(118, 30, 30);
+}
+
+.catch-button:disabled {
+    opacity: 0.4;
+    cursor: default;
+    background: linear-gradient(to bottom, rgb(255, 159, 69), rgb(238, 238, 238));
+}
+
+.catch-button:disabled:disabled:hover {
+    background: linear-gradient(to bottom, rgb(255, 159, 69), rgb(238, 238, 238));
+    box-shadow: none;
+}
+
+.catch-button:disabled:disabled:active {
+    background: linear-gradient(to bottom, rgb(255, 159, 69), rgb(238, 238, 238));
+    box-shadow: none;
+}
+
+
+.catalog-header {
+    position: sticky;
+    top: 51px;
+    z-index: 99;
+    background-color: white;
+    padding:4px;
+}
+
+.page-button {
+    position: absolute;
+    margin-top: 6px;
+    font-size: 18px;
+}
+
+.page-buttons span {
+    color:black;
+}

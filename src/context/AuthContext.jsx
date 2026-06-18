@@ -1,27 +1,51 @@
 import { createContext, useContext, useState } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({ username: "TestUser" });
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || null
+  );
 
-  function login(username) {
-    setUser({ username });
+  function login(token, username) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
+
+    setToken(token);
+    setUsername(username);
   }
 
   function logout() {
-    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+
+    setToken(null);
+    setUsername(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        token,
+        username,
+        user: username ? { username } : null,
+        login,
+        logout,
+        isLoggedIn: !!token,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("Please call within AuthProvider");
+  }
+
+  return context;
 }
-
-
