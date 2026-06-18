@@ -1,4 +1,4 @@
-function PokemonCard({number, name, onCatch, isCaught}) {
+function PokemonCard({number, name, types, height, weight, onCatch, isCaught}) {
     const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png`;
     // Capitalize first letter (/￣ー￣)/~~☆’.･.･:★’.･.･:☆
     const displayName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -18,8 +18,17 @@ function PokemonCard({number, name, onCatch, isCaught}) {
             <p>
                 #{number} {displayName}
             </p>
-        <button onClick={() => onCatch(number)}>
-                    {isCaught ? "Caught": "Catch"}
+            <p>
+                Types: {types.join(", ")}
+            </p>
+            <p>
+                Height: {height} m
+            </p>
+            <p>
+                Weight: {weight} kg
+            </p>
+            <button onClick={() => onCatch(number)}>
+                {isCaught ? "Caught": "Catch"}
             </button>
         </div>
     );
